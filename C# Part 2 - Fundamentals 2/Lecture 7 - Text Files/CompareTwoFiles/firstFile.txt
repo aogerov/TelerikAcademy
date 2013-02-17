@@ -1,0 +1,62 @@
+﻿//Write a program that reads a text file and inserts line numbers in front of each of its lines.
+//The result should be written to another text file.
+
+using System;
+using System.IO;
+using System.Text;
+
+class InsertLineNumbers
+{
+    static void WriteFile(string text, string resultPath)
+    {
+        using (StreamWriter writer = new StreamWriter(resultPath))
+        {
+            writer.Write(text);
+        }
+    }
+//gruh-gruh
+    static void Main()
+    {
+        string path = @"..\..\InsertLineNumbers.cs";
+        string resultPath = @"..\..\result.txt";
+
+        int lineCounter = 1;
+        StringBuilder outputText = new StringBuilder();
+
+        try
+        {
+            using (StreamReader reader = new StreamReader(path))
+            {
+                outputText.Append(lineCounter + ". ");
+                outputText.Append(reader.ReadLine());
+
+                while (!reader.EndOfStream)
+                {
+                    lineCounter++;
+                    outputText.Append("\r\n" + lineCounter + ". ");
+                    outputText.Append(reader.ReadLine());
+                }
+            }
+//firstFile different row
+            WriteFile(outputText.ToString(), resultPath);
+
+            Console.WriteLine("File created!\r\n");
+        }
+        catch (FileNotFoundException)
+        {
+            Console.Error.WriteLine("Error! File not found exeption!");
+        }
+        catch (DirectoryNotFoundException)
+        {
+            Console.Error.WriteLine("Error! Directory not found exeption!");
+        }
+        catch (IOException)
+        {
+            Console.Error.WriteLine("Error! I/O exeption!");
+        }
+        catch (Exception)
+        {
+            Console.Error.WriteLine("Fatal error!");
+        }
+    }
+}
