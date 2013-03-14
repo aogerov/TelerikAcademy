@@ -1,0 +1,32 @@
+﻿<!--Write an expression that checks if given positive integer number n (n ≤ 100) is prime. E.g. 37 is prime.-->
+
+<html>
+<head>
+    <title>Operators Expressions</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        jsConsole.writeLine("All prime numbers in the range [2 ... 100] are:");
+
+        var isPrime = true;
+
+        for (var number = 2; number <= 100; number++) {
+            for (var divisor = 2; divisor < number; divisor++) {
+                if (number % divisor === 0) {
+                    isPrime = false;
+                    break;
+                }
+            }
+
+            if (isPrime) {
+                jsConsole.writeLine(number);
+            }
+
+            isPrime = true;
+        }
+    </script>
+</body>
+</html>

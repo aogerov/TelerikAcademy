@@ -1,0 +1,24 @@
+﻿<!--Write an expression that checks for given integer if its third digit (right-to-left) is 7. E. g. 1732  true.-->
+
+<html>
+<head>
+    <title>Operators Expressions</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        var integers = [1372, 1732, 1327];
+
+        for (var i = 0; i < integers.length; i++) {
+            if (Math.floor(integers[i] / 100) % 10 === 7) {
+                jsConsole.writeLine("The third digit of " + integers[i] + " is 7.");
+            }
+            else {
+                jsConsole.writeLine("The third digit of " + integers[i] + " is NOT 7.");
+            }
+        }
+    </script>
+</body>
+</html>
