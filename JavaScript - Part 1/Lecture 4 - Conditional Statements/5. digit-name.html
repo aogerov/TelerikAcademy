@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Conditional Statements</title>
+	<link href="styles/js-console.css" rel="stylesheet" />
+	<style>
+		input[type=text]{
+			border:1px solid black;
+			padding:5px 15px;
+			background-color:black;
+			color:white;
+			font-family:Consolas;		   
+			margin-bottom:5px;
+		}
+
+		a{
+			color:black;
+			border:1px solid black;
+			padding:5px 15px;						
+			text-decoration:none;	   
+			display:inline-block;		 
+			margin: 15px 0;
+		}
+
+		a:hover{
+			text-decoration:underline;
+		}
+	</style>
+</head>
+<body>
+    <p>Write script that asks for a digit and depending on the input shows the name of that digit (in English) using a switch statement.</p>
+	<label for="tb-first">First number: </label>
+	<input type="text" id="tb-first"/>
+	<br />
+	<a href="#" onclick="onFindBiggerButtonClick()">Show name</a>
+	<div id="console">
+	</div>
+	<script src="scripts/js-console.js">	  
+	</script>		  
+	<script>			
+		function onFindBiggerButtonClick() {
+			var input = jsConsole.readFloat("#tb-first");
+
+			switch (input) {
+			    case 0: jsConsole.writeLine("zero");
+			        break;
+			    case 1: jsConsole.writeLine("one");
+			        break;
+			    case 2: jsConsole.writeLine("two");
+			        break;
+			    case 3: jsConsole.writeLine("three");
+			        break;
+			    case 4: jsConsole.writeLine("four");
+			        break;
+			    case 5: jsConsole.writeLine("five");
+			        break;
+			    case 6: jsConsole.writeLine("six");
+			        break;
+			    case 7: jsConsole.writeLine("seven");
+			        break;
+			    case 8: jsConsole.writeLine("eight");
+			        break;
+			    case 9: jsConsole.writeLine("nine");
+			        break;
+			    default: jsConsole.writeLine("Error! Enter some gigit in the range [0 ... 9]");
+			        break;
+			}
+		}											
+	</script>			  
+</body>
+</html>
