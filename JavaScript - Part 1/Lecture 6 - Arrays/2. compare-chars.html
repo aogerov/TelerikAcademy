@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Arrays</title>
+	<link href="styles/js-console.css" rel="stylesheet" />
+	<style>
+		input[type=text]{
+			border:1px solid black;
+			padding:5px 15px;
+			background-color:black;
+			color:white;
+			font-family:Consolas;		   
+			margin-bottom:5px;
+		}
+
+		a{
+			color:black;
+			border:1px solid black;
+			padding:5px 15px;						
+			text-decoration:none;	   
+			display:inline-block;		 
+			margin: 15px 0;
+		}
+
+		a:hover{
+			text-decoration:underline;
+		}
+	</style>
+</head>
+<body>
+    <p>Write a script that compares two char arrays lexicographically (letter by letter).</p>
+	<label for="tb-first">1'st array: </label>
+	<input type="text" id="tb-first" value="b d a g w u w g k w j p"/>
+	<br />							  
+	<label for="tb-second">2'nd array: </label>
+	<input type="text" id="tb-second" value="r s u d u q p j s v e l"/>
+	<br />
+	<a href="#" onclick="onFindBiggerButtonClick()">Compare</a>
+	<div id="console">
+	</div>
+	<script src="scripts/js-console.js">	  
+	</script>		  
+	<script>			
+	    function onFindBiggerButtonClick() {
+
+		    var firstString = jsConsole.read("#tb-first");
+		    var secondString = jsConsole.read("#tb-second");
+
+		    var first = firstString.split(' ');
+		    var second = secondString.split(' ');
+
+		    var length;
+
+		    if (first.length < second.length) {
+
+		        length = first.length;
+			}
+			else {
+
+		        length = second.length;
+			}
+
+			for (var i = 0; i < length - 1; i++) {
+
+			    if (first[i] < second[i]) {
+
+			        jsConsole.writeLine(first[i] + " < " + second[i]);
+			    }
+			    else if (first[i] === second[i]) {
+
+			        jsConsole.writeLine(first[i] + " = " + second[i]);
+			    }
+			    else if (first[i] > second[i]) {
+
+			        jsConsole.writeLine(first[i] + " > " + second[i]);
+			    }
+			}
+		}											
+	</script>			  
+</body>
+</html>

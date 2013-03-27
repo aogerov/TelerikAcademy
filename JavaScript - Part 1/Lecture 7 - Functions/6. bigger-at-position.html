@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Functions</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        #tb-field {
+            width: 350px;
+        }
+
+        #tb-number {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <p>Write a function that checks if the element at given position in given array of integers is bigger than its two neighbors (when such exist).</p>
+    <label for="tb-field">Array</label>
+    <input id="tb-field" type="text" class="js-console-input" value="1, 2, 3, 1, 5, 4" />
+    <br />
+    <label for="tb-number">Index</label>
+    <input id="tb-number" type="text" class="js-console-input" value="2" />
+    <a href="#" class="js-console-btn" onclick="onFindOccurrences()">Find</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+
+        function onFindOccurrences() {
+            var input = jsConsole.read("#tb-field");
+            var index = jsConsole.readInteger("#tb-number");
+
+            var splittedNumbers = input.split(/[.,!? ]/);
+            splittedNumbers = splittedNumbers.filter(function (e) { return e });
+
+            var numbers = [];
+
+            for (var i = 0; i < splittedNumbers.length; i++) {
+                numbers[i] = parseInt(splittedNumbers[i]);
+            }
+
+            if (find(numbers, index)) {
+                jsConsole.writeLine(numbers[index] + " is bigger than its neighbor(s).");
+            }
+            else {
+                jsConsole.writeLine(numbers[index] + " is NOT bigger than its neighbor(s).");
+            }
+        }
+
+        function find(array, index) {
+            if (index > 0 && index < array.length - 1) {
+                if ((array[index] > array[index - 1]) && (array[index] > array[index + 1])) {
+                    return true;
+                }
+            }
+            else if (index === 0) {
+                if (array[index] > array[index + 1]) {
+                    return true;
+                }
+            }
+            else if (index === array.length - 1) {
+                if (array[index] > array[index - 1]) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+    </script>
+</body>
+</html>

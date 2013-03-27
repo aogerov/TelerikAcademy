@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Arrays</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        input[type=text] {
+            border: 1px solid black;
+            padding: 5px 15px;
+            background-color: black;
+            color: white;
+            font-family: Consolas;
+            margin-bottom: 5px;
+            width: 200px;
+        }
+
+        a {
+            color: black;
+            border: 1px solid black;
+            padding: 5px 15px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 15px 0;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body>
+    <p>Write a script that finds the maximal increasing sequence in an array.</p>
+    <p>Example: {3, 2, 3, 4, 2, 2, 4} -> {2, 3, 4}</p>
+    <label for="tb-first">Numbers: </label>
+    <input type="text" id="tb-first" value="3, 2, 3, 4, 2, 2, 4" />
+    <br />
+    <a href="#" onclick="onFindBiggerButtonClick()">Find sequence</a>
+    <div id="console">
+    </div>
+    <script src="scripts/js-console.js">	  
+    </script>
+    <script>
+        function onFindBiggerButtonClick() {
+
+            var numbers = String(jsConsole.read("#tb-first")).split(', ');
+
+            var maxIndex = 0;
+            var maxLength = 1;
+
+            for (var i = 0; i < numbers.length - 1; i++) {
+
+                var currentIndex = i;
+                var currentLength = 1;
+
+                while (currentIndex < numbers.length - 1) {
+
+                    if (parseInt(numbers[currentIndex]) + 1 === parseInt(numbers[currentIndex + 1])) {
+
+                        currentLength++;
+                    }
+                    else {
+
+                        break;
+                    }
+
+                    currentIndex++;
+                }
+
+                if (maxLength < currentLength) {
+
+                    maxIndex = i;
+                    maxLength = currentLength;
+                }
+
+                i = currentIndex;
+            }
+
+            jsConsole.write("{");
+
+            for (var i = 0; i < maxLength; i++) {
+
+                jsConsole.write(numbers[maxIndex + i]);
+
+                if (i < maxLength - 1) {
+                    jsConsole.write(", ");
+                }
+            }
+
+            jsConsole.writeLine("}");
+        }
+    </script>
+</body>
+</html>
+*

@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Functions</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <p>Write a function that reverses the digits of given decimal number. Example: 256 -> 652</p>
+    <label for="tb-number">Number</label>
+    <input id="tb-number" type="text" class="js-console-input" value="1234.56" />
+    <a href="#" class="js-console-btn" onclick="onPrintLastDigit()">Digit as word</a>
+    <br />
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+
+        function onPrintLastDigit() {
+
+            var number = jsConsole.read("#tb-number");
+            var commaIndex = number.indexOf(",");
+
+            if (commaIndex === -1) {
+                commaIndex = number.indexOf(".");
+            }
+
+            var reversedNum = [];
+
+            for (var i = 0; i < number.length; i++) {
+                if ((number[number.length - 1 - i] === ',') || (number[number.length - 1 - i] === '.')) {
+                    continue;
+                }
+                else {
+                    reversedNum[i] = number[number.length - 1 - i];
+                }
+            }
+
+            var finalNum = [];
+
+            for (var i = 0; i <= commaIndex; i++) {
+                finalNum[i] = reversedNum[i];
+            }
+
+            finalNum[commaIndex + 1] = number[commaIndex];
+
+            for (var i = commaIndex + 2; i <= reversedNum.length; i++) {
+                finalNum[i] = reversedNum[i - 1];
+            }
+
+            for (var i = 0; i < finalNum.length; i++) {
+                jsConsole.write(finalNum[i]);
+            }
+            jsConsole.writeLine();
+        }
+
+    </script>
+</body>
+</html>

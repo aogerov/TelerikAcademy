@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Functions</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        #tb-field {
+            width: 366px;
+        }
+
+        #tb-number {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <p>Write a function that counts how many times given number appears in given array. Write a test function to check if the function is working correctly.</p>
+    <label for="tb-field">Array</label>
+    <input id="tb-field" type="text" class="js-console-input" value="1, 2, 3, 1, 5, 4" />
+    <br />
+    <label for="tb-number">Number</label>
+    <input id="tb-number" type="text" class="js-console-input" value="1" />
+    <a href="#" class="js-console-btn" onclick="onFindOccurrences()">Find</a>
+    <a href="#" class="js-console-btn" onclick="onAutomatedTest()">Test</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+
+        function onFindOccurrences() {
+            var text = jsConsole.read("#tb-field");
+            var number = jsConsole.readInteger("#tb-number");
+
+            var splittedNumbers = text.split(/[.,!? ]/);
+            splittedNumbers = splittedNumbers.filter(function (e) { return e });
+
+            var numbers = [];
+
+            for (var i = 0; i < splittedNumbers.length; i++) {
+                numbers[i] = parseInt(splittedNumbers[i]);
+            }
+
+            jsConsole.writeLine("Occurrences count: " + find(numbers, number));
+        }
+
+        function onAutomatedTest() {
+            var arr1 = [9, 3, 1, 5, 2, 0];
+            var num1 = 7;
+            var res1 = 0;
+
+            var arr2 = [17, 34, 21, 86, 21, 93];
+            var num2 = 21;
+            var res2 = 2;
+
+            var arr3 = [183, 901, 123, 543, 284, 777];
+            var num3 = 901;
+            var res3 = 1;
+
+            printAutomated(arr1, num1, res1, find(arr1, num1));
+            printAutomated(arr2, num2, res2, find(arr2, num2));
+            printAutomated(arr3, num3, res3, find(arr3, num3));
+        }
+
+        function find(arr, number) {
+            var count = 0;
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] === number) {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        function printAutomated(arr, num, res, find) {
+            jsConsole.writeLine("Array: " + arr);
+            jsConsole.writeLine("Number: " + num);
+            jsConsole.writeLine("Expected result: " + res);
+            jsConsole.writeLine("Current result: " + find);
+            if (res === find) {
+                jsConsole.writeLine("Test passed.");
+            }
+            else {
+                jsConsole.writeLine("Test failed.");
+            }
+            jsConsole.writeLine("------------");
+        }
+
+    </script>
+</body>
+</html>

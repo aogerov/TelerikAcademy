@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Functions</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        #tb-field {
+            width: 350px;
+        }
+    </style>
+</head>
+<body>
+    <p>Write a function that finds all the occurrences of word in a text</p>
+    <p>The search can case sensitive or case insensitive</p>
+    <p>Use function overloading</p>
+    <label for="tb-field">Text</label>
+    <input id="tb-field" type="text" class="js-console-input" value="Some text, some text." />
+    <br />
+    <label for="tb-word">Word</label>
+    <input id="tb-word" type="text" class="js-console-input" value="some" />
+    <a href="#" class="js-console-btn" onclick="onFindOccurrences()">Find</a>
+    <br />
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+
+        function onFindOccurrences() {
+            var text = jsConsole.read("#tb-field");
+            var word = jsConsole.read("#tb-word");
+
+            var splittedWords = text.split(/[.,!? ]/);
+
+            var caseSensitiveResult = find(true);
+            var caseInsitiveResult = find(false);
+
+            jsConsole.writeLine("Case sensitive occurrences " + caseSensitiveResult);
+            jsConsole.writeLine("Case insitive occurrences " + caseInsitiveResult);
+
+            function find(caseSensitive) {
+                var isSensitive = caseSensitive || false;
+                var count = 0;
+
+                if (isSensitive) {
+                    for (var i = 0; i < splittedWords.length; i++) {
+                        if (splittedWords[i].trim() === word.trim()) {
+                            count++;
+                        }
+                    }
+                    return count;
+                }
+                else {
+                    for (var i = 0; i < splittedWords.length; i++) {
+                        if (splittedWords[i].toLowerCase().trim() === word.toLowerCase().trim()) {
+                            count++;
+                        }
+                    }
+                    return count;
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>

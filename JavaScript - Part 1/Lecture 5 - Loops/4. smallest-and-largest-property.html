@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Loops</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        input[type=text] {
+            border: 1px solid black;
+            padding: 5px 15px;
+            background-color: black;
+            color: white;
+            font-family: Consolas;
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: black;
+            border: 1px solid black;
+            padding: 5px 15px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 15px 0;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body>
+    <p>Write a script that finds the lexicographically smallest and largest property in document, window and navigator objects</p>
+    <a href="#" onclick="onFindBiggerButtonClick()">Find properties</a>
+    <div id="console">
+    </div>
+    <script src="scripts/js-console.js">	  
+    </script>
+    <script>
+        function onFindBiggerButtonClick() {
+
+            var docProp = Object.keys(document);
+            var minDoc = docProp[0];
+            var maxDoc = docProp[0];
+
+            for (var i = 1; i < docProp.length; i++) {
+                
+
+                if (minDoc > docProp[i]) {
+
+                    if (docProp[i] === "URL") {
+                        continue;
+                    }
+
+                    minDoc = docProp[i];
+                }
+
+                if (maxDoc < docProp[i]) {
+
+                    maxDoc = docProp[i];
+                }
+            }
+
+            jsConsole.writeLine("Min document property is: " + minDoc);
+            jsConsole.writeLine("Max document property is: " + maxDoc);
+
+            var winProp = Object.keys(window);
+            var minWin = winProp[0];
+            var maxWin = winProp[0];
+
+            for (var i = 1; i < winProp.length; i++) {
+
+
+                if (minWin > winProp[i]) {
+
+                    minWin = winProp[i];
+                }
+
+                if (maxWin < winProp[i]) {
+
+                    maxWin = winProp[i];
+                }
+            }
+
+            jsConsole.writeLine("Min window property is: " + minWin);
+            jsConsole.writeLine("Max window property is: " + maxWin);
+
+            var navProp = Object.keys(navigator);
+            var minNav = navProp[0];
+            var maxNav = navProp[0];
+
+
+            for (var i = 1; i < navProp.length; i++) {
+
+
+                if (minNav > navProp[i]) {
+
+                    minNav = navProp[i];
+                }
+
+                if (maxNav < navProp[i]) {
+
+                    maxNav = navProp[i];
+                }
+            }
+
+            jsConsole.writeLine("Min navigator property is: " + minNav);
+            jsConsole.writeLine("Max navigator property is: " + maxNav);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Arrays</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        input[type=text] {
+            border: 1px solid black;
+            padding: 5px 15px;
+            background-color: black;
+            color: white;
+            font-family: Consolas;
+            margin-bottom: 5px;
+            width: 250px;
+        }
+
+        #tb-second {
+            width: 50px;
+        }
+
+        a {
+            color: black;
+            border: 1px solid black;
+            padding: 5px 15px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 15px 0;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body>
+    <p>Write a program that finds the index of given element in a sorted array of integers by using the binary search algorithm (find it in Wikipedia)</p>
+    <label for="tb-first">Numbers: </label>
+    <input type="text" id="tb-first" value="-7, -3, 0, 1, 2, 3, 4, 5, 7, 8, 9" />
+    <br />
+    <label for="tb-second">Find: </label>
+    <input type="text" id="tb-second" value="2" />
+    <br />
+    <a href="#" onclick="onFindBiggerButtonClick()">Try</a>
+    <div id="console">
+    </div>
+    <script src="scripts/js-console.js">	  
+    </script>
+    <script>
+        function onFindBiggerButtonClick() {
+
+            var inputNumbers = String(jsConsole.read("#tb-first")).split(', ');
+            var inputFind = jsConsole.read("#tb-second");
+
+            var unknownNumberToFind = parseInt(inputFind);
+            var numbers = [];
+
+            for (var i = 0; i < inputNumbers.length; i++) {
+
+                numbers[i] = parseInt(inputNumbers[i]);
+            }
+
+            var startIndex = 0;
+            var endIndex = 0;
+            var indexPosition = 0;
+
+            var foundNumber;
+            var unknownNumberToFindIndex;
+
+            if ((unknownNumberToFind < numbers[0]) || (unknownNumberToFind > numbers[numbers.Length - 1])) {
+
+                foundNumber = false;
+
+                if (unknownNumberToFind < numbers[0]) {
+
+                    unknownNumberToFindIndex = 0;
+                }
+                else {
+
+                    unknownNumberToFindIndex = numbers.Length - 1;
+                }
+            }
+            else {
+
+                startIndex = 0;
+                endIndex = numbers.length - 1;
+
+                if (unknownNumberToFind > numbers[endIndex]) {
+
+                    foundNumber = false;
+                    unknownNumberToFindIndex = endIndex;
+                }
+                else {
+
+                    while (true) {
+
+                        indexPosition = startIndex + Math.floor((endIndex - startIndex) / 2);
+
+                        if (unknownNumberToFind === numbers[indexPosition]) {
+
+                            foundNumber = true;
+                            unknownNumberToFindIndex = indexPosition;
+                            break;
+                        }
+                        else {
+
+                            if (unknownNumberToFind < numbers[indexPosition]) {
+
+                                if (Math.floor((endIndex - startIndex) % 2) === 0) {
+
+                                    endIndex = indexPosition;
+                                }
+                                else {
+
+                                    endIndex = indexPosition + 1;
+                                }
+                            }
+                            else {
+
+                                if (Math.floor((endIndex - startIndex) % 2) === 0) {
+
+                                    startIndex = indexPosition;
+                                }
+                                else {
+
+                                    startIndex = indexPosition + 1;
+                                }
+                            }
+
+                            if ((numbers[indexPosition] < unknownNumberToFind) && (unknownNumberToFind < numbers[indexPosition + 1])) {
+
+                                foundNumber = false;
+                                unknownNumberToFindIndex = indexPosition;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (foundNumber === true) {
+
+                jsConsole.writeLine("Number " + unknownNumberToFind + " is found at index " + unknownNumberToFindIndex);
+            }
+            else {
+
+                jsConsole.writeLine("Number " + unknownNumberToFind + " is NOT found. Algorithm index output -" + (unknownNumberToFindIndex + 1));
+            }
+        }
+    </script>
+</body>
+</html>
+*

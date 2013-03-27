@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Arrays</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        input[type=text] {
+            border: 1px solid black;
+            padding: 5px 15px;
+            background-color: black;
+            color: white;
+            font-family: Consolas;
+            margin-bottom: 5px;
+            width: 250px;
+        }
+
+        a {
+            color: black;
+            border: 1px solid black;
+            padding: 5px 15px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 15px 0;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body>
+    <p>Write a program that finds the most frequent number in an array.</p>
+    <p>Example: {4, 1, 1, 4, 2, 3, 4, 4, 1, 2, 4, 9, 3} -> 4 (5 times)</p>
+    <label for="tb-first">Numbers: </label>
+    <input type="text" id="tb-first" value="4, 1, 1, 4, 2, 3, 4, 4, 1, 2, 4, 9, 3" />
+    <br />
+    <a href="#" onclick="onFindBiggerButtonClick()">Find</a>
+    <div id="console">
+    </div>
+    <script src="scripts/js-console.js">	  
+    </script>
+    <script>
+        function onFindBiggerButtonClick() {
+
+            var input = String(jsConsole.read("#tb-first")).split(', ');
+
+            var numbers = [];
+
+            for (var i = 0; i < input.length; i++) {
+
+                numbers[i] = parseInt(input[i]);
+            }
+
+            for (var i = 0; i < numbers.length; i++) {
+
+                var index = i;
+                var minNumber = numbers[i];
+
+                for (var j = i; j < numbers.length; j++) {
+
+                    if (minNumber > numbers[j]) {
+
+                        index = j;
+                        minNumber = numbers[j];
+                    }
+                }
+
+                var temp = numbers[i];
+                numbers[i] = numbers[index];
+                numbers[index] = temp;
+            }
+
+            var maxNumber = numbers[0];
+            var maxCount = 1;
+
+            var curNumber = numbers[0];
+            var curCount = 1;
+
+            for (var i = 1; i < numbers.length; i++) {
+
+                if (curNumber === numbers[i]) {
+
+                    curCount++;
+                }
+                else {
+
+                    curNumber = numbers[i]
+                    curCount = 1;
+                }
+
+                if (maxCount < curCount) {
+
+                    maxCount = curCount;
+                    maxNumber = numbers[i];
+                }
+            }
+
+            jsConsole.writeLine("Result:");
+            jsConsole.writeLine(input);
+            jsConsole.writeLine("-> " + maxNumber + " (" + maxCount + " times)");x
+        }
+    </script>
+</body>
+</html>
+*

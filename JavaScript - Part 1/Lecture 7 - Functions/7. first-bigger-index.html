@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Functions</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        #tb-field {
+            width: 350px;
+        }
+
+        a {
+            display: inline-block;
+            margin: 5px 0;
+            margin-left: 41px;
+        }
+    </style>
+</head>
+<body>
+    <p>Write a Function that returns the index of the first element in array that is bigger than its neighbors, or -1, if there’s no such element.</p>
+    <p>Use the function from the previous exercise.</p>
+    <label for="tb-field">Array</label>
+    <input id="tb-field" type="text" class="js-console-input" value="1, 2, 3, 1, 5, 4" />
+    <br />
+    <a href="#" id="tb-btn" class="js-console-btn" onclick="onFindOccurrences()">Find</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+
+        function onFindOccurrences() {
+            var input = jsConsole.read("#tb-field");
+            var splittedNumbers = input.split(/[.,!? ]/);
+            splittedNumbers = splittedNumbers.filter(function (e) { return e });
+            
+            var numbers = [];
+
+            for (var i = 0; i < splittedNumbers.length; i++) {
+                numbers[i] = parseInt(splittedNumbers[i]);
+            }
+
+            var foundIndex = false;
+            for (var i = 1; i < numbers.length - 1; i++) {
+                if (find(numbers, i) === true) {
+                    jsConsole.writeLine("First bigger number than its two neighbors:");
+                    jsConsole.writeLine("is: " + numbers[i]);
+                    jsConsole.writeLine("at index: " + i);
+                    foundIndex = true;
+                    break;
+                }
+            }
+            if (!foundIndex) {
+                jsConsole.writeLine("No such number found. Return index -1");
+            }
+        }
+
+        function find(array, index) {
+            if (index > 0 && index < array.length - 1) {
+                if ((array[index] > array[index - 1]) && (array[index] > array[index + 1])) {
+                    return true;
+                }
+            }
+            else if (index === 0) {
+                if (array[index] > array[index + 1]) {
+                    return true;
+                }
+            }
+            else if (index === array.length - 1) {
+                if (array[index] > array[index - 1]) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+    </script>
+</body>
+</html>

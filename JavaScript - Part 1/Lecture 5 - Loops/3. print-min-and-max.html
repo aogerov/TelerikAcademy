@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Loops</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        input[type=text] {
+            border: 1px solid black;
+            padding: 5px 15px;
+            background-color: black;
+            color: white;
+            font-family: Consolas;
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: black;
+            border: 1px solid black;
+            padding: 5px 15px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 15px 0;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body>
+    <p>Write a script that finds the max and min number from a sequence of numbers</p>
+    <label for="tb-first">Number 1: </label>
+    <input type="text" id="tb-first" />
+    <br />
+    <label for="tb-second">Number 2: </label>
+    <input type="text" id="tb-second" />
+    <br />
+    <label for="tb-third">Number 3: </label>
+    <input type="text" id="tb-third" />
+    <br />
+    <label for="tb-fourt">Number 4: </label>
+    <input type="text" id="tb-fourt" />
+    <br />
+    <label for="tb-fifth">Number 5: </label>
+    <input type="text" id="tb-fifth" />
+    <br />
+    <a href="#" onclick="onFindBiggerButtonClick()">Find</a>
+    <div id="console">
+    </div>
+    <script src="scripts/js-console.js">	  
+    </script>
+    <script>
+        function onFindBiggerButtonClick() {
+
+            var numbers = [];
+            numbers[0] = jsConsole.readFloat("#tb-first");
+            numbers[1] = jsConsole.readFloat("#tb-second");
+            numbers[2] = jsConsole.readFloat("#tb-third");
+            numbers[3] = jsConsole.readFloat("#tb-fourt");
+            numbers[4] = jsConsole.readFloat("#tb-fifth");
+
+            var min = numbers[0];
+            var max = numbers[0];
+
+            for (var i = 1; i < numbers.length; i++) {
+
+                if (min > numbers[i]) {
+
+                    min = numbers[i];
+                }
+
+                if (max < numbers[i]) {
+
+                    max = numbers[i];
+                }
+            }
+
+            jsConsole.writeLine("Min number is: " + min);
+            jsConsole.writeLine("Max number is: " + max);
+        }
+    </script>
+</body>
+</html>
