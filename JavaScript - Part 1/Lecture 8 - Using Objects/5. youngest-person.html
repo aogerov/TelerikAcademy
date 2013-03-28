@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Using objects</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        .js-console-input {
+            margin: 5px 0;
+        }
+
+        p {
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+    <p>Write a function that finds the youngest person in a given array of persons and prints his/hers full name.</p>
+    <p>Each person have properties firstname, lastname and age, as shown:</p>
+    <label for="tb-person1">Person 1</label>
+    <input id="tb-person1" type="text" class="js-console-input" value="Doncho Minkov 22" />
+    <br />
+    <label for="tb-person2">Person 2</label>
+    <input id="tb-person2" type="text" class="js-console-input" value="Georgi Georgiev 20" />
+    <br />
+    <label for="tb-person3">Person 3</label>
+    <input id="tb-person3" type="text" class="js-console-input" value="Niki Kostov 21" />
+    <a href="#" class="js-console-btn" onclick="onCheckPerson()">Check</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+
+        function onCheckPerson() {
+            var persons = [];
+            persons[0] = splitInput(jsConsole.read("#tb-person1"));
+            persons[1] = splitInput(jsConsole.read("#tb-person2"));
+            persons[2] = splitInput(jsConsole.read("#tb-person3"));
+
+            for (var i = 0; i < persons.length; i++) {
+                persons[i][2] = parseFloat(persons[i][2]);
+            }
+
+            var youngest = findYoungest(persons);
+            jsConsole.writeLine("The youngest person is: " + youngest[0] + " " + youngest[1])
+        }
+
+        function findYoungest(arr) {
+            if (arr != null) {
+                var youngest = arr[0];
+
+                for (var i = 1; i < youngest.length; i++) {
+                    if (arr[i][2] < youngest[2]) {
+                        youngest = arr[i];
+                    }
+                }
+
+                return youngest;
+            }
+        }
+
+        function splitInput(input) {
+            return input.split(/[.,!? ]/).filter(function (e) { return e });
+        }
+
+    </script>
+</body>
+</html>

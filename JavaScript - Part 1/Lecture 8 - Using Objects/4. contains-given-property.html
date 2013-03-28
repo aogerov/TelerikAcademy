@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Using objects</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        .js-console-input {
+            margin: 5px 0;
+        }
+
+        p {
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+    <p>Write a function that checks if a given object contains a given property.</p>
+    <label for="tb-property">Property</label>
+    <input id="tb-property" type="text" class="js-console-input" value="body" />
+    <br />
+    <label for="tb-object">in object</label>
+    <input id="tb-object" type="text" class="js-console-input" value="document" />
+    <a href="#" class="js-console-btn" onclick="onCheckProperty()">Check</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+
+        function onCheckProperty() {
+            var prop = jsConsole.read("#tb-property").trim();
+            var obj = jsConsole.read("#tb-object").trim();
+            jsConsole.writeLine(obj + ' contains the proprerty "' + prop + '" -> ' + hasProperty(eval(obj), prop));
+        }
+
+        function hasProperty(obj, prop) {
+            var docProp = Object.keys(obj);
+            for (var i = 1; i < docProp.length; i++) {
+                if (docProp[i] == prop) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+    </script>
+</body>
+</html>

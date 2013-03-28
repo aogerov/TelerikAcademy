@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Using objects</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        .js-console-input {
+            margin: 5px 0;
+            width: 100px;
+        }
+
+        #tb-field {
+            width: 350px;
+        }
+
+        p {
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+    <p>Write a function that removes all elements with a given value.</p>
+    <p>Attach it to the array class.</p>
+    <p>Read about prototype and how to attach methods.</p>
+    <label for="tb-field">Array</label>
+    <input id="tb-field" type="text" class="js-console-input" value='1,2,1,4,1,3,4,1,111,3,2,1,"1"' />
+    <br />
+    <label for="tb-number">Remove</label>
+    <input id="tb-number" type="text" class="js-console-input" value="1" />
+    <a href="#" class="js-console-btn" onclick="onRemoveOccurrences()">Result</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+
+        function onRemoveOccurrences() {
+
+            Array.prototype.remove = function (value) {
+                var output = [];
+                for (var i = 0; i < this.length; i++) {
+                    if (this[i].toString() !== value.toString()) {
+                        output.push(this[i]);
+                    }
+                }
+                return output;
+            }
+
+            input = splitInput(jsConsole.read("#tb-field"));
+            input = input.remove(jsConsole.read("#tb-number"));
+            jsConsole.writeLine(input);
+        }
+
+        function splitInput(input) {
+            return input.split(/[.,!? ]/).filter(function (e) { return e });
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Using objects</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        .js-console-input {
+            margin: 5px 0;
+            width: 100px;
+        }
+
+        p {
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+    <p>Write functions for working with shapes in standard Planar coordinate system</p>
+    <p>Points are represented by coordinates P(X, Y)</p>
+    <p>Lines are represented by two points, marking their beginning and ending</p>
+    <p>L(P1(X1,Y1),P2(X2,Y2))</p>
+    <p>Calculate the distance between two points</p>
+    <p>Check if three segment lines can form a triangle</p>
+    <label for="tb-point11">Line 1 - Point 1</label>
+    <input id="tb-point11" type="text" class="js-console-input" value="1, 2" />
+    <label for="tb-point12">Point 2</label>
+    <input id="tb-point12" type="text" class="js-console-input" value="2, 1" />
+    <br />
+    <label for="tb-point21">Line 2 - Point 1</label>
+    <input id="tb-point21" type="text" class="js-console-input" value="2, 1" />
+    <label for="tb-point22">Point 2</label>
+    <input id="tb-point22" type="text" class="js-console-input" value="3, 4" />
+    <br />
+    <label for="tb-point31">Line 3 - Point 1</label>
+    <input id="tb-point31" type="text" class="js-console-input" value="3, 4" />
+    <label for="tb-point32">Point 2</label>
+    <input id="tb-point32" type="text" class="js-console-input" value="1, 2" />
+    <a href="#" class="js-console-btn" onclick="onFindOccurrences()">Calculate</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+
+        function onFindOccurrences() {
+            var points = [];
+            var results = [];
+            points[0] = splitPoint(jsConsole.read("#tb-point11"));
+            points[1] = splitPoint(jsConsole.read("#tb-point12"));
+            points[2] = splitPoint(jsConsole.read("#tb-point21"));
+            points[3] = splitPoint(jsConsole.read("#tb-point22"));
+            points[4] = splitPoint(jsConsole.read("#tb-point31"));
+            points[5] = splitPoint(jsConsole.read("#tb-point32"));
+
+            for (var i = 0, j = 0; i < 6; i += 2, j++) {
+                results[j] = calculateDist(points[i], points[i + 1]);
+                jsConsole.writeLine("Distance between " + points[i] + " and " + points[i + 1] + " is: " + results[j]);
+            }
+
+            jsConsole.writeLine();
+            jsConsole.writeLine("If any one of the lines is longer than or equal to the sum of the other two, they can't form a triangle. "
+                + "If the lengths of the line segments are a, b and c, they form a triangle if:");
+            jsConsole.writeLine("a + b > c");
+            jsConsole.writeLine("a + c > b");
+            jsConsole.writeLine("b + c > a");
+
+            if ((results[0] + results[1] > results[2]) && (results[0] + results[2] > results[1]) && (results[1] + results[2] > results[0])) {
+                jsConsole.writeLine("The three segment lines can form a triangle.");
+            }
+            else {
+                jsConsole.writeLine("The three segment lines can NOT form a triangle.");
+            }
+            jsConsole.writeLine();
+        }
+
+        function splitPoint(point) {
+            return point.split(/[.,!? ]/).filter(function (e) { return e });
+        }
+
+        function calculateDist(point1, point2) {
+            p1X = parseFloat(point1[0]);
+            p1Y = parseFloat(point1[1]);
+            p2X = parseFloat(point2[0]);
+            p2Y = parseFloat(point2[1]);
+            return Math.sqrt((p2X - p1X) * (p2X - p1X) + (p2Y - p1Y) * (p2Y - p1Y));
+        }
+
+    </script>
+</body>
+</html>

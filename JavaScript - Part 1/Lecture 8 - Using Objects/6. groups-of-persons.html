@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Using objects</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        .js-console-input {
+            margin: 5px 0;
+        }
+
+        p {
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        Write a function that groups an array of persons by age, first or last name.
+        The function must return an associative array, with keys - the groups, and values -arrays with persons in this groups
+    </p>
+    <p>Use function overloading (i.e. just one function)</p>
+    <label for="tb-person1">Person 1</label>
+    <input id="tb-person1" type="text" class="js-console-input" value="Gosho Todorov 28" />
+    <br />
+    <label for="tb-person2">Person 2</label>
+    <input id="tb-person2" type="text" class="js-console-input" value="Anadol Pistov 42" />
+    <br />
+    <label for="tb-person3">Person 3</label>
+    <input id="tb-person3" type="text" class="js-console-input" value="Mitko Andreev 33" />
+    <a href="#" class="js-console-btn" onclick="onCheckPerson()">Test it</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+
+        function onCheckPerson() {
+
+            var person1 = splitInput(jsConsole.read("#tb-person1"));
+            var person2 = splitInput(jsConsole.read("#tb-person2"));
+            var person3 = splitInput(jsConsole.read("#tb-person3"));
+
+            var persons = [
+            { firstName: person1[0], lastName: person1[1], age: parseInt(person1[2]) },
+            { firstName: person2[0], lastName: person2[1], age: parseInt(person2[2]) },
+            { firstName: person3[0], lastName: person3[1], age: parseInt(person3[2]) }
+            ];
+
+            jsConsole.writeLine("Original:");
+            printOutput(persons);
+
+            jsConsole.writeLine("Grouped by first name:");
+            group(persons, "firstName");
+            printOutput(persons);
+
+            jsConsole.writeLine("Grouped by last name:");
+            group(persons, "lastName");
+            printOutput(persons);
+
+            jsConsole.writeLine("Grouped by age:");
+            group(persons, "age");
+            printOutput(persons);
+        }
+
+        function group(arr, prop) {
+            for (var i = 0; i < arr.length - 1; i++) {
+                for (var j = 0; j < arr.length - 1; j++) {
+                    if (arr[j][prop] > arr[j + 1][prop]) {
+                        var temp = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = temp;
+                    }
+                }
+            }
+        }
+
+        function splitInput(input) {
+            return input.split(/[.,!? ]/).filter(function (e) { return e });
+        }
+
+        function printOutput(arr) {
+            for (var i = 0; i < arr.length; i++) {
+                jsConsole.writeLine("Name: " + arr[i].firstName + " " + arr[i].lastName + ", Age: " + arr[i].age);
+            }
+            jsConsole.writeLine();
+        }
+
+    </script>
+</body>
+</html>

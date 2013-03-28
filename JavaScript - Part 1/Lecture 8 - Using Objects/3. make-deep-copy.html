@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Using objects</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        a {
+            display: inline-block;
+            margin: 5px;
+        }
+
+        p {
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+    <p>Write a function that makes a deep copy of an object.</p>
+    <p>The function should work for both primitive and reference types</p>
+    <a href="#" class="js-console-btn" onclick="onMakeDeepCopy()">Copy</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+
+        function onMakeDeepCopy(obj) {
+
+            var obj = {
+                firstName: "Pesho",
+                lastName: "Petrov",
+                EGN: 1234567890,
+                location: ["Bulgaria", "City", "District"],
+                toString: function () {
+                    return this.firstName + ", " + this.lastName + ", " + this.EGN + ", Location: [" +
+                        this.location[0] + ", " + this.location[1] + ", " + this.location[2] + "]"
+                }
+            };
+            var copy = copyObj(obj);
+
+            jsConsole.writeLine("Original:");
+            jsConsole.writeLine(obj);
+            jsConsole.writeLine("----------");
+            jsConsole.writeLine("Copy:");
+            jsConsole.writeLine(copy);
+            jsConsole.writeLine("----------");
+            jsConsole.writeLine("PS: The idea about the used recursive algorithm was borrowed from telerik's forum.");
+        }
+
+        function copyObj(obj) {
+            if (typeof obj != "object") {
+                return obj;
+            }
+            else {
+                var result = {};
+                for (var i in obj) {
+                    result[i] = copyObj(obj[i]);
+                }
+                return result;
+            }
+        }
+
+    </script>
+</body>
+</html>
