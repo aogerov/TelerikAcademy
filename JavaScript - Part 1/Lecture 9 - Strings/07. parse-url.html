@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Strings</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        .js-console-input {
+            margin: 5px 0;
+            width: 500px;
+        }
+
+        p {
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+    <p>Write a script that parses an URL address given in the format:</p>
+    <p>[protocol]://[server]/[resource]</p>
+    <p>and extracts from it the [protocol], [server] and [resource] elements. Return the elements in a JSON object.</p>
+    <p>For example from the URL http://www.devbg.org/forum/index.php the following information should be extracted:</p>
+    <p>{protocol: "http",</p>
+    <p>server: "www.devbg.org",</p>
+    <p>resource: "/forum/index.php"}</p>
+    <label for="tb-field">URL</label>
+    <input id="tb-field" type="text" class="js-console-input" value="http://www.devbg.org/forum/index.php" />
+    <a href="#" class="js-console-btn" onclick="onParse()">Parse</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+
+        function onParse() {
+            var input = jsConsole.read("#tb-field");
+
+            var result = parseResultJSON(
+                input.substring(0, input.indexOf(":")),
+                (input.split("://"))[1].substring(0, (input.split("://"))[1].indexOf("/")),
+                (input.split("://"))[1].substring(input.split("://")[1].indexOf("/")));
+
+            result = validateOutput(result);
+
+            jsConsole.writeLine("Result after parsing:<br />" + result + "<br />");
+        }
+
+        function parseResultJSON(protocol, server, resource) {
+            return {
+                protocol: protocol,
+                server: server,
+                resource: resource,
+                toString: function () {
+                    return "protocol: " + this.protocol +
+                        "<br />server: " + this.server +
+                        "<br />resource: " + this.resource;
+                }
+            }
+        }
+
+        function validateOutput(obj) {
+            if (obj["server"].toString().length < 1) {
+                return parseResultJSON(obj.protocol, obj.resource, "&lt;missing resource&gt;");
+            }
+            else if (obj["resource"].toString() == "/") {
+                return parseResultJSON(obj.protocol, obj.server, "&lt;missing resource&gt;");
+            }
+            else {
+                return obj;
+            }
+        }
+
+    </script>
+</body>
+</html>

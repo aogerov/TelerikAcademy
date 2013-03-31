@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Using objects</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        .js-console-input {
+            margin: 5px 0;
+            width: 150px;
+        }
+
+        p {
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+    <p>Write a function that creates a HTML UL using a template for every HTML LI. The source of the list should an array of elements. Replace all placeholders marked with –{…}–   with the value of the corresponding property of the object. Example:</p>
+    <p>Used template:</p>
+    <p>&lt;div data-type="template" id="list-item"&gt;</p>
+    <p>&lt;strong&gt;-{name}-&lt;/strong&gt; &lt;span&gt;-{age}-&lt;/span&gt;</p>
+    </p>&lt;/div&gt;</p>
+    <label for="tb-name1">Name</label>
+    <input id="tb-name1" type="text" class="js-console-input" value="Pesho Peshev" />
+    <label for="tb-age1">Age</label>
+    <input id="tb-age1" type="text" class="js-console-input" value="19" />
+    <br />
+    <label for="tb-name2">Name</label>
+    <input id="tb-name2" type="text" class="js-console-input" value="Dimitar Pavlov" />
+    <label for="tb-age2">Age</label>
+    <input id="tb-age2" type="text" class="js-console-input" value="65" />
+    <br />
+    <label for="tb-name3">Name</label>
+    <input id="tb-name3" type="text" class="js-console-input" value="Anton Vutkov" />
+    <label for="tb-age3">Age</label>
+    <input id="tb-age3" type="text" class="js-console-input" value="33" />
+    <a href="#" class="js-console-btn" onclick="onCreate()">Create</a>
+    <div data-type="template" id="list-item">
+        <strong>-{name}-</strong> <span>-{age}-</span>
+    </div>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+
+        function onCreate() {
+
+            var persons =
+            [
+                { name: jsConsole.read("#tb-name1"), age: jsConsole.read("#tb-age1") },
+                { name: jsConsole.read("#tb-name2"), age: jsConsole.read("#tb-age2") },
+                { name: jsConsole.read("#tb-name3"), age: jsConsole.read("#tb-age3") }
+            ];
+
+            var template = document.getElementById("list-item").innerHTML;
+            var result = [];
+            var replacementRegExp = /-{(.*?)}-/;
+
+            result.push("<ul>");
+            for (var i = 0; i < persons.length; i++) {
+                var line = template.replace(replacementRegExp, persons[i].name);
+                line = line.replace(replacementRegExp, persons[i].age);
+                result.push("<li>");
+                result.push(line);
+                result.push("</li>");
+            }
+            result.push("</ul>");
+
+            printStart(template);
+            jsConsole.writeLine("<br />Result:");
+            for (var i = 0; i < result.length; i++) {
+                //#region current print optimization
+                if (i == 1 || i == 3 || i == 4 || i == 6 || i == 7 || i == 9) {
+                    jsConsole.write("&emsp;&emsp;&emsp;&emsp;");
+                }
+                if (i == 2 || i == 5 || i == 8) {
+                    jsConsole.write("&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;");
+                }
+                //#endregion current print optimization
+                for (var j = 0; j < result[i].length; j++) {
+                    jsConsole.write(result[i][j]);
+                }
+                jsConsole.writeLine();
+            }
+        }
+
+        var isPrinted = false;
+
+        function printStart(template) {
+
+            if (!isPrinted) {
+                jsConsole.writeLine("Used template:");
+                for (var i = 0; i < template.length; i++) {
+                    jsConsole.write(template[i]);
+                }
+                jsConsole.writeLine();
+            }
+            isPrinted = true;
+        }
+
+    </script>
+</body>
+</html>

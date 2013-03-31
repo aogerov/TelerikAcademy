@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Strings</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        .js-console-input {
+            margin: 5px 0;
+            width: 350px;
+        }
+
+        p {
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+    <p>Write a JavaScript function reverses string and returns it.</p>
+    <p>Example: "sample" -> "elpmas".</p>
+    <label for="tb-field">String</label>
+    <input id="tb-field" type="text" class="js-console-input" value="sample" />
+    <a href="#" class="js-console-btn" onclick="onReverse()">Reverse</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+
+        function onReverse() {
+            var input = jsConsole.read("#tb-field");
+            var reversed = [];
+
+            for (var i = 0; i < input.length; i++) {
+                reversed.push(input[input.length - 1 - i]);
+            }
+            var output = reversed.join("");
+
+            jsConsole.writeLine(output);
+        }
+
+    </script>
+</body>
+</html>

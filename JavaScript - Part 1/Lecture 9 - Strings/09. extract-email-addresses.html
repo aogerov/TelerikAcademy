@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Strings</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        p {
+            margin: 2px;
+        }
+
+        textarea {
+            display: block;
+            width: 600px;
+        }
+
+        .js-console-btn {
+            display: inline-block;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <p>Write a function for extracting all email addresses from given text. All substrings that match the format &lt;identifier&gt;@&lt;host&gt;…&lt;domain&gt; should be recognized as emails. Return the emails as array of strings.</p>
+    <textarea id="tb-field" class="js-console-input" rows="4">Text with some e-mails, like gogo@abv.bg, or some_other@gmail.co.uk and the final one pesho@peshev. For the e-mail validation is used the standart RFC 2822.</textarea>
+    <a href="#" class="js-console-btn" onclick="onExtract()">Extract</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+
+        function onExtract() {
+            var input = document.getElementById("tb-field").value;
+            var splitted = input.split(" ").filter(function (e) { return e });
+            var results = [];
+
+            for (var i = 0; i < splitted.length; i++) {
+                var current = splitted[i];
+                var validateEnd = checkForNonLetters(current, current.length - 1);
+
+                if (!validateEnd) {
+                    var arr = [];
+
+                    for (var j = 0; j < current.length - 1; j++) {
+                        arr.push(current[j]);
+                    }
+                    current = arr.join("");
+                    validateEnd = checkForNonLetters(current, current.length - 1);
+                }
+                
+                if (validateEmail(current)) {
+                    results.push(current);
+                }
+            }
+
+            printResults(results);
+        }
+
+        function checkForNonLetters(str, position) {
+            var firstLetter = str.charAt(position).toUpperCase();
+            if (firstLetter.toLowerCase() != firstLetter) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        function validateEmail(email) {
+            var regEx = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
+            return regEx.test(email);
+        }
+
+        function printResults(results) {
+            if (results.length > 0) {
+                jsConsole.writeLine("Extracted email addresses:")
+                for (var i = 0; i < results.length; i++) {
+                    jsConsole.writeLine(results[i]);
+                }
+            }
+            else {
+                jsConsole.writeLine("No matches found.");
+            }
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Strings</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        p {
+            margin: 2px;
+        }
+
+        textarea {
+            display: block;
+            width: 600px;
+        }
+
+        .js-console-btn {
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <p>Write a JavaScript function that replaces in a HTML document given as string all the tags &lt;a href="…"&gt;…&lt;/a&gt; with corresponding tags [URL=…]…[/URL]. Sample HTML fragment:</p>
+    <p>&lt;p&gt;Please visit &lt;a href="http://academy.telerik. com"&gt;our site&lt;/a&gt; to choose a training course. Also visit &lt;a href="www.devbg.org"&gt;our forum&lt;a&gt; to discuss the courses.&lt;/p&gt;</p>
+    <p>Result:</p>
+    <p>&lt;p&gt;Please visit [URL=http://academy.telerik. com]our site[/URL] to choose a training course. Also visit [URL=www.devbg.org]our forum[/URL] to discuss the courses.&lt;/p&gt;</p>
+    <a href="#" class="js-console-btn" onclick="onReplace()">Replace</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+
+        jsConsole.writeLine('Test example:');
+        var text = '<p>Please visit <a href="http://academy.telerik. com">our site</a> to choose a training course. Also visit <a href="www.devbg.org">our forum</a> to discuss the courses.</p>';
+        for (var i = 0; i < text.length; i++) {
+            jsConsole.write(text[i]);
+        }
+        
+        function onReplace() {
+            text = replace(text, '<a href="', '[URL=');
+            text = fixedReplace(text, '</a>', '[/URL]');
+            jsConsole.writeLine('<br /><br />Result:');
+            var length = text.length;
+            for (var i = 0; i < length; i++) {
+                jsConsole.write(text[i]);
+            }
+        }
+
+        function replace(str, key, value) {
+            var result = [];
+            var count = 0;
+            var index = str.indexOf(key);
+            var indexes = [];
+
+            while (index >= 0) {
+                count++;
+                indexes.push(index);
+                index = str.indexOf(key, index + 1);
+            }
+
+            for (var i = 0; i < count; i++) {
+                index = str.indexOf('">', indexes[i] + 1);
+
+                for (var j = 0; j < index; j++) {
+                    result.push(str[j]);
+                }
+
+                result.push(']');
+                for (var j = index + 2; j < str.length; j++) {
+                    result.push(str[j]);
+                }
+
+                str = result.join('');
+                result = [];
+            }
+
+            for (var i = 0; i < count; i++) {
+                str = str.replace(key, value);
+            }
+
+            return str;
+        }
+
+        function fixedReplace(str, key, value) {
+            var count = 0;
+            var index = str.indexOf(key);
+
+            while (index >= 0) {
+                count++;
+                index = str.indexOf(key, index + 1);
+            }
+
+            for (var i = 0; i < count; i++) {
+                str = str.replace(key, value);
+            }
+            
+            return str;
+        }
+
+    </script>
+</body>
+</html>

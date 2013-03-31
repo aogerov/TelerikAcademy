@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Strings</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        p {
+            margin: 2px;
+        }
+
+        textarea {
+            display: block;
+            width: 600px;
+        }
+
+        input {
+            width: 100px;
+        }
+
+        .js-console-btn {
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <p>You are given a text. Write a function that changes the text in all regions. Regions can be nested.</p>
+    <p>&lt;upcase&gt;text&lt;/upcase&gt; to uppercase , &lt;lowcase&gt;text&lt;/lowcase&gt; to lowercase , &lt;mixcase&gt;text&lt;/mixcase&gt; to mix casing(random)</p>
+    <p>Example: We are &lt;mixcase&gt;living&lt;/mixcase&gt; in a &lt;upcase&gt;yellow submarine&lt;/upcase&gt;. We &lt;mixcase&gt;don't&lt;/mixcase&gt; have &lt;lowcase&gt;anything&lt;/lowcase&gt; else.</p>
+    <p>The expected result: We are LiVinG in a YELLOW SUBMARINE. We dOn'T have anything else.</p>
+    <a href="#" class="js-console-btn" onclick="onChange()">Change</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+
+        jsConsole.writeLine("Test example:");
+        jsConsole.writeLine("We are &lt;mixcase&gt;living&lt;/mixcase&gt; in a &lt;upcase&gt;yellow submarine&lt;/upcase&gt;. We &lt;mixcase&gt;don't&lt;/mixcase&gt; have &lt;lowcase&gt;anYTHing&lt;/lowcase&gt; else.");
+
+        function onChange() {
+            var text = "We are <mixcase>living</mixcase> in a <upcase>yellow submarine</upcase>. We <mixcase>don't</mixcase> have <lowcase>anYTHing</lowcase> else.";
+            text = factoryChange(text);
+            jsConsole.writeLine("Result:");
+            jsConsole.writeLine(text);
+        }
+
+        function factoryChange(str) {
+            str = change(str, "<upcase>");
+            str = change(str, "<lowcase>");
+            str = change(str, "<mixcase>");
+            return str;
+        }
+
+        function change(str, key) {
+            var count = findSubstr(str, key);
+            var closeKey = key.substr(0, 1) + "/" + key.substr(1);
+
+            while (count > 0) {
+                var startIndex = str.indexOf(key);
+                var endIndex = str.indexOf(closeKey);
+                str = changeAll(str, key, startIndex, endIndex);
+                count--;
+            }
+            return str;
+        }
+
+        function changeAll(str, key, startIndex, endIndex) {
+            var temp = [];
+            for (var i = 0; i < startIndex; i++) {
+                temp.push(str[i]);
+            }
+            for (var i = startIndex + key.length; i < endIndex; i++) {
+                if (key == "<upcase>") {
+                    temp.push(str[i].toUpperCase());
+                }
+                else if (key == "<lowcase>") {
+                    temp.push(str[i].toLowerCase());
+                }
+                else if (key == "<mixcase>") {
+                    if (Math.floor(Math.random() * 2)) {
+                        temp.push(str[i].toUpperCase());
+                    }
+                    else {
+                        temp.push(str[i].toLowerCase());
+                    }
+                }
+            }
+            for (var i = endIndex + key.length + 1; i < str.length; i++) {
+                temp.push(str[i]);
+            }
+            return temp.join("");
+        }
+
+        function findSubstr(str, word) {
+            var index = -1;
+            var count = -1;
+            while (index >= 0 || count == -1) {
+                count++;
+                index = str.toLowerCase().indexOf(word.toLowerCase(), index + 1);
+            }
+            return count;
+        }
+
+    </script>
+</body>
+</html>

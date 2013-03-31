@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Strings</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        p {
+            margin: 2px;
+        }
+
+        textarea {
+            display: block;
+            width: 600px;
+        }
+
+        .js-console-btn {
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <p>Write a function that extracts the content of a html page given as text. The function should return anything that is in a tag, without the tags:</p>
+    <p>&lt;html&gt;&lt;head&gt;&lt;title&gt;Sample site&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;div&gt;text&lt;div&gt;more text&lt;/div&gt;and more...&lt;/div&gt;in body&lt;/body&gt;&lt;/html&gt;</p>
+    <p>result:</p>
+    <p>Sample sitetextmore textand more...in body</p>
+    <a href="#" class="js-console-btn" onclick="onExtract()">Extract</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+
+        jsConsole.writeLine("Test example:");
+        jsConsole.writeLine("&lt;html&gt;&lt;head&gt;&lt;title&gt;Sample site&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;div&gt;text&lt;div&gt;more text&lt;/div&gt;and more...&lt;/div&gt;in body&lt;/body&gt;&lt;/html&gt;");
+
+        function onExtract() {
+            var text = "<html><head><title>Sample site</title></head><body><div>text<div>more text</div>and more...</div>in body</body></html>";
+            text = change(text);
+            jsConsole.writeLine("Result: <br />" + text);
+        }
+
+        function change(str, key) {
+            var result = [];
+            var inTag = false;
+
+            for (var i = 0; i < str.length; i++) {
+                if (!inTag) {
+                    if (str[i] == "<") {
+                        inTag = true;
+                        continue;
+                    }
+                    else {
+                        result.push(str[i]);
+                    }
+                }
+                else {
+                    if (str[i] == ">") {
+                        inTag = false;
+                    }
+                }
+            }
+
+            return result.join("");
+        }
+
+    </script>
+</body>
+</html>

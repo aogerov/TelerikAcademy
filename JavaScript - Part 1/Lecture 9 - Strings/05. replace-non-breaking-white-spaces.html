@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Strings</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        p {
+            margin: 2px;
+        }
+
+        textarea {
+            display: block;
+            width: 600px;
+        }
+
+        .js-console-btn {
+            display: inline-block;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <p>Write a function that replaces non breaking white-spaces in a text with &nbsр;</p>
+    <textarea id="tb-field" class="js-console-input" rows="4">JavaScript is a prototype-based scripting language that is dynamic, weakly typed, and has first-class functions. Its syntax was influenced by the language C.</textarea>
+    <a href="#" class="js-console-btn" onclick="onReplace()">Replace</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+
+        function onReplace() {
+            var input = document.getElementById("tb-field").value;
+            var internalResult = replace(input, " ", "&nbsр;");
+            var browserOutput = replace(internalResult, "р", "p");
+            jsConsole.writeLine("Internal replacing in program:<br />" + internalResult);
+            jsConsole.writeLine("<br />Browser output:<br />" + browserOutput + "<br />");
+        }
+
+        function replace(str, target, replacer) {
+            var internal = [];
+            for (var i = 0; i < str.length; i++) {
+                if (str[i] == target) {
+                    internal.push(replacer);
+                }
+                else {
+                    internal.push(str[i]);
+                }
+            }
+            return internal.join("");
+        }
+
+    </script>
+</body>
+</html>

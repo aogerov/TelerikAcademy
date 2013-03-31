@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Strings</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        p {
+            margin: 2px;
+        }
+
+        textarea {
+            display: block;
+            width: 600px;
+        }
+
+        .js-console-btn {
+            display: inline-block;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <p>Write a program that extracts from a given text all palindromes, e.g. "ABBA", "lamal", "exe".</p>
+    <textarea id="tb-field" class="js-console-input" rows="4">Text with some palindromes, like ABBA, lamal and the final one exe.</textarea>
+    <a href="#" class="js-console-btn" onclick="onExtract()">Extract</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+
+        function onExtract() {
+            var input = document.getElementById("tb-field").value;
+            var splitted = input.split(" ").filter(function (e) { return e });
+            var results = [];
+
+            for (var i = 0; i < splitted.length; i++) {
+                var current = splitted[i];
+                var validateEnd = checkForNonLetters(current, current.length - 1);
+
+                if (!validateEnd) {
+                    var arr = [];
+
+                    for (var j = 0; j < current.length - 1; j++) {
+                        arr.push(current[j]);
+                    }
+                    current = arr.join("");
+                    validateEnd = checkForNonLetters(current, current.length - 1);
+                }
+                
+                if (checkPalindrome(current)) {
+                    results.push(current);
+                }
+            }
+
+            printResults(results);
+        }
+
+        function checkForNonLetters(str, position) {
+            var firstLetter = str.charAt(position).toUpperCase();
+            if (firstLetter.toLowerCase() != firstLetter) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        function checkPalindrome(input) {
+            if (input.length == 1) {
+                return false;
+            }
+            for (var i = 0; i < input.length / 2; i++) {
+                if (input[i] != input[input.length - 1 - i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function printResults(results) {
+            if (results.length > 0) {
+                jsConsole.writeLine("Extracted palindormes:")
+                for (var i = 0; i < results.length; i++) {
+                    jsConsole.writeLine(results[i]);
+                }
+            }
+            else {
+                jsConsole.writeLine("No palindormes found.");
+            }
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Strings</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        p {
+            margin: 2px;
+        }
+
+        textarea {
+            display: block;
+            width: 600px;
+        }
+
+        input{
+            width: 100px;
+        }
+
+        .js-console-btn {
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <p>Write a JavaScript function that finds how many times a substring is contained in a given text (perform case insensitive search).</p>
+    <p>Example: The target substring is "in". The text is as follows:</p>
+    <p>We are living in an yellow submarine. We don't have anything else. Inside the submarine is very tight. So we are drinking all the day. We will move out of it in 5 days.</p>
+    <p>The result is: 9.</p>
+    <textarea id="tb-field" class="js-console-input" rows="4">We are living in an yellow submarine. We don't have anything else. Inside the submarine is very tight. So we are drinking all the day. We will move out of it in 5 days.</textarea>
+    <label for="tb-word">Substring</label>
+    <input id="tb-word" type="text" class="js-console-input" value="in" />
+    <a href="#" class="js-console-btn" onclick="onContained()">Find</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+
+        function onContained() {
+            var input = document.getElementById("tb-field").value;
+            var word = jsConsole.read("#tb-word");
+            var count = findSubstr(input, word);
+            jsConsole.writeLine("The result is: " + count);
+        }
+
+        function findSubstr(str, word) {
+            var index = -1;
+            var count = -1;
+            while (index >= 0 || count == -1) {
+                count++;
+                index = str.toLowerCase().indexOf(word.toLowerCase(), index + 1);
+            }
+            return count;
+        }
+
+    </script>
+</body>
+</html>
