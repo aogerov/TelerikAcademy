@@ -1,0 +1,20 @@
+﻿ul {
+  margin-top: 5px;
+  list-style-type: none;
+}
+li {
+  padding-left: 20px;
+  background: url(../images/arrow.png) 0 0 no-repeat;
+}
+li:hover {
+  cursor: pointer;
+}
+span:hover {
+  text-decoration: underline;
+}
+.showedList > ul {
+  display: block;
+}
+.hiddenList > ul {
+  display: none;
+}
