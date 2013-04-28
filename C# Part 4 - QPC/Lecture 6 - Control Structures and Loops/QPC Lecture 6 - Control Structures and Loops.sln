@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2. MixedRefactoring", "MixedRefactoring\2. MixedRefactoring.csproj", "{99B38E70-879F-4986-AD3A-E8A6FC74867D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1. Kitchen", "Kitchen\1. Kitchen.csproj", "{59713F7F-ABAD-4275-A1B0-CD65A8928B7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3. Loop", "Loop\3. Loop.csproj", "{2DE661E4-EB48-48FD-B3DA-250FB69AEC9E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{99B38E70-879F-4986-AD3A-E8A6FC74867D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99B38E70-879F-4986-AD3A-E8A6FC74867D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99B38E70-879F-4986-AD3A-E8A6FC74867D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99B38E70-879F-4986-AD3A-E8A6FC74867D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59713F7F-ABAD-4275-A1B0-CD65A8928B7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59713F7F-ABAD-4275-A1B0-CD65A8928B7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59713F7F-ABAD-4275-A1B0-CD65A8928B7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59713F7F-ABAD-4275-A1B0-CD65A8928B7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DE661E4-EB48-48FD-B3DA-250FB69AEC9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DE661E4-EB48-48FD-B3DA-250FB69AEC9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DE661E4-EB48-48FD-B3DA-250FB69AEC9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DE661E4-EB48-48FD-B3DA-250FB69AEC9E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
